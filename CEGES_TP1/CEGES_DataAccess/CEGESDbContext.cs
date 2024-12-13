@@ -2,13 +2,14 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using CEGES_MVC.Models;
+using CEGES_Models.Models;
 
 
 
 
 namespace CEGES_DataAccess.data
 {
-    public class CEGESDbContext : IdentityDbContext<IdentityUser>
+    public class CEGESDbContext : DbContext
     {
         public CEGESDbContext(DbContextOptions<CEGESDbContext> options) : base(options)
         {
@@ -28,44 +29,43 @@ namespace CEGES_DataAccess.data
 
             // Ajouter des données de seed pour l'entité 'Entreprise'
             modelBuilder.Entity<Entreprise>().HasData(
-                new Entreprise { Id =1, Nom = "Entreprise A" },
-                new Entreprise { Id = 2, Nom = "Entreprise B" }
+                new Entreprise { id =1, Nom = "Entreprise A" },
+                new Entreprise { id = 2, Nom = "Entreprise B" }
             );
 
             // Ajouter des données de seed pour l'entité 'Groupe'
             modelBuilder.Entity<Groupe>().HasData(
-                new Groupe { Id = 1, Nom = "Groupe A", NombreGroupe = 1 },
-                new Groupe { Id = 2, Nom = "Groupe B", NombreGroupe = 2 }
+                new Groupe { id = 1, Nom = "Groupe A", NombreGroupe = 1 },
+                new Groupe { id = 2, Nom = "Groupe B", NombreGroupe = 2 }
             );
 
             // Ajouter des données de seed pour l'entité 'Equipement'
             modelBuilder.Entity<Equipement>().HasData(
-                new Equipement { Id = 1, TypeEquipement = "Equipement 1" },
-                new Equipement { Id = 2, TypeEquipement= "Equipement 2" }
+                new Equipement { id = 1, TypeEquipement = "Equipement 1" },
+                new Equipement { id = 2, TypeEquipement= "Equipement 2" }
             );
 
             // Ajouter des données de seed pour l'entité 'Constante'
             modelBuilder.Entity<Constante>().HasData(
-                new Constante { Id = 1, Nom = "Constante A", Quantite = 100 },
-                new Constante { Id = 2, Nom = "Constante B", Quantite = 200 }
+                new Constante { id= 1, TypeEquipement= "Constante A", Quantite = 100 },
+                new Constante { id = 2, TypeEquipement = "Constante B", Quantite = 200 }
             );
 
             // Ajouter des données de seed pour l'entité 'Lineaire'
             modelBuilder.Entity<Lineaire>().HasData(
-                new Lineaire { Id = 1, Nom = "Lineaire A", UniteMesure = "m", FacteurConversion = 1.5 },
-                new Lineaire { Id = 2, Nom = "Lineaire B", UniteMesure = "cm", FacteurConversion = 0.01 }
+                new Lineaire { id = 1, UniteMesure = "m", FacteurConversion = 1.5 },
+                new Lineaire { id = 2, UniteMesure = "cm", FacteurConversion = 0.01 }
             );
 
-            // Ajouter des données de seed pour l'entité 'EmissionMensuelle'
+            // Configuration pour ajouter des données de seed
             modelBuilder.Entity<EmissionMensuelle>().HasData(
-                new EmissionMensuelle { Id = 1, Mois = "Janvier", Emission = 1000 },
-                new EmissionMensuelle { Id = 2, Mois = "Février", Emission = 1200 }
-            );
+                new EmissionMensuelle { id = 1, Mois = "Janvier", Annee = 2023, TotalEntreprise = 1000 },
+                new EmissionMensuelle { id = 2, Mois = "Février", Annee = 2023, TotalEntreprise = 1200 })
+          ;
         }
     }
 }
-    }
-}
+    
 
 
 

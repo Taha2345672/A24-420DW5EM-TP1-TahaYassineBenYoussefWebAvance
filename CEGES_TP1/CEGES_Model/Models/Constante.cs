@@ -7,11 +7,11 @@ using System.Threading.Tasks;
 
 namespace CEGES_Models.Models
 {
-    namespace CEGES_MVC.Models
-    {
+ 
+    
         public class Constante : Equipement
         {
+            public int id { get; set; }
             public double Quantite { get; set; }
         }
     }
-}
