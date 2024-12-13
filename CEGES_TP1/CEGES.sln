@@ -7,6 +7,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CEGES_MVC", "CEGES_MVC\CEGE
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CEGES_Util", "CEGES_Util\CEGES_Util.csproj", "{DEAD3CB3-BE9F-41F9-B63C-91B7EE149D51}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CEGES_DataAccess", "CEGES_DataAccess\CEGES_DataAccess.csproj", "{C41EBF88-16B4-4D0B-BDF6-4386651E224D}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CEGES_Models", "CEGES_Model\CEGES_Models.csproj", "{DE62D0E0-C33E-4BF1-983D-25552DFE7974}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +25,14 @@ Global
 		{DEAD3CB3-BE9F-41F9-B63C-91B7EE149D51}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DEAD3CB3-BE9F-41F9-B63C-91B7EE149D51}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DEAD3CB3-BE9F-41F9-B63C-91B7EE149D51}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C41EBF88-16B4-4D0B-BDF6-4386651E224D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C41EBF88-16B4-4D0B-BDF6-4386651E224D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C41EBF88-16B4-4D0B-BDF6-4386651E224D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C41EBF88-16B4-4D0B-BDF6-4386651E224D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DE62D0E0-C33E-4BF1-983D-25552DFE7974}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DE62D0E0-C33E-4BF1-983D-25552DFE7974}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DE62D0E0-C33E-4BF1-983D-25552DFE7974}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DE62D0E0-C33E-4BF1-983D-25552DFE7974}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

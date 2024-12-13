@@ -1,4 +1,4 @@
-﻿using CEGES_MVC.Areas.Configuration.Controllers;
+﻿using System.Collections.Generic;
 
 namespace CEGES_MVC.Models
 {
