@@ -4,9 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CEGES_Models.Models
+namespace CEGES_MVC.Models
 {
-    internal class Lineaire
+    public class Lineaire : Equipement
     {
+        public string UniteMesure { get; set; }
+        public double FacteurConversion { get; set; }
     }
 }
