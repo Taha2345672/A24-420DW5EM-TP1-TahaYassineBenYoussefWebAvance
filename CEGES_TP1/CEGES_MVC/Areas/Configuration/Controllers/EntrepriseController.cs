@@ -80,7 +80,7 @@ namespace CEGES_MVC.Areas.Configuration.Controllers
                 }
                 try
                 {
-                    await _EntrepriseService.Configuration.EditAnalystesEntrepriseAsync(entrepriseVM.Entreprise.Id, entrepriseVM.SelectAnalystes);
+                    //await _EntrepriseService.Configuration.EditAnalystesEntrepriseAsync(entrepriseVM.Entreprise.Id, entrepriseVM.SelectAnalystes);
                 }
                 catch (Exception)
                 {
