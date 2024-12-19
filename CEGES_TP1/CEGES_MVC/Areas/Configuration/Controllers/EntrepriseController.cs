@@ -1,4 +1,7 @@
 ﻿using CEGES.Models;
+using CEGES_Models.ViewModels;
+using CEGES_MVC.Models;
+using CEGES_Service.IService;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using System;
@@ -12,55 +15,80 @@ namespace CEGES_MVC.Areas.Configuration.Controllers
     public class EntrepriseController : Controller
     {
 
-        public EntrepriseController()
-        {
+        private readonly IEntrepriseService _EntrepriseService;
 
+        public EntrepriseController(IEntrepriseService EntrepriseService)
+        {
+            _EntrepriseService = EntrepriseService;
         }
+
 
         public IActionResult Index()
         {
-            return View();
+            List<ListeEntreprisesVM> vm = _EntrepriseService.Configuration.GetEntreprisesAndCountsAsync();
+            return View(vm);
         }
 
         public async Task<IActionResult> Details(int id)
         {
-            await Task.CompletedTask;
-            return View();
+            DetailEntrepriseVM vm = await _EntrepriseService.Configuration.GetEntrepriseDetailAsync(id);
+
+            if (vm.Entreprise == null)
+            {
+                return NotFound();
+            }
+            return View(vm);
         }
 
         public async Task<IActionResult> Upsert(int? id)
         {
-            await Task.CompletedTask;
-            VM_Vide vm = new VM_Vide();
+           EntrepriseFormVM vm = new EntrepriseFormVM();
             if (id == null)
             {
-                // Créer une nouvelle entreprise
-            } 
+                vm.Entreprise = new Entreprise();
+            }
             else
             {
-                 // Récupérer l'entreprise existante
+                vm.Entreprise = await _EntrepriseService.Configuration.GetEntrepriseAsync(id.GetValueOrDefault());
+            }
+
+            if (vm.Entreprise == null)
+            {
+                return NotFound();
             }
             return View(vm);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Upsert(VM_Vide vm)
+        public async Task<IActionResult> Upsert(EntrepriseFormVM entrepriseVM)
         {
-            await Task.CompletedTask;
             if (ModelState.IsValid)
             {
-                if (vm.Id == 0)
+                if (entrepriseVM.Entreprise.Id == 0)
                 {
-                    // Ajouter l'entreprise
+                    await _EntrepriseService.Configuration.AddEntrepriseAsync(entrepriseVM.Entreprise);
                 }
                 else
                 {
-                    // Modifier l'entreprise
+                    _EntrepriseService.Configuration.UpdateEntreprise(entrepriseVM.Entreprise);
                 }
-                return RedirectToAction(nameof(Details), new { id = vm.Id });
+                if (entrepriseVM.SelectAnalystes.Count > 3)
+                {
+                    // Message d'erreur "TROP D'ANALYSTES SÉLECTIONNÉS
+                    return RedirectToAction(nameof(Upsert), new { id = entrepriseVM.Entreprise.Id });
+                }
+                try
+                {
+                    await _EntrepriseService.Configuration.EditAnalystesEntrepriseAsync(entrepriseVM.Entreprise.Id, entrepriseVM.SelectAnalystes);
+                }
+                catch (Exception)
+                {
+                    return RedirectToAction(nameof(Upsert), new { id = entrepriseVM.Entreprise.Id });
+                }
+                return RedirectToAction(nameof(Details), new { id = entrepriseVM.Entreprise.Id });
             }
-            return View(vm);
+            return View(entrepriseVM);
         }
     }
 }

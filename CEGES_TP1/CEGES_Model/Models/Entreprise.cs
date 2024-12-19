@@ -6,7 +6,7 @@ namespace CEGES_MVC.Models
 {
     public class Entreprise
     {
-        public int id { get; set; }
+        public int Id { get; set; }
         public string Nom { get; set; }
         public ICollection<Groupe>groupes { get; set; }
         public ICollection<EmissionMensuelle> emissionMensuelles { get; set; }

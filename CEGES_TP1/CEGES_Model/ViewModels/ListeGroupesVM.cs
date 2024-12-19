@@ -5,12 +5,12 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace CEGES_Models.ViewModels
-{
-    public class EntrepriseViewModel
+{ 
+  public class ListeGroupesVM
     {
+        public int Id { get; set; }
         public string Nom { get; set; }
-        public int NombreGroupes { get; set; }
-        public int NombreEquipements { get; set; }
-        public int NombrePeriodesMesurees { get; set; }
+        public int Equipements { get; set; }
     }
 }
+
