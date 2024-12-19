@@ -25,5 +25,7 @@ namespace CEGES_Service.IService
         public void UpdateGroupe(Groupe groupe);
         public Task EditAnalystesEntrepriseAsync(int entrepriseId, List<string> analysteIds);
         public IEntrepriseService Configuration { get; }
+
+
     }
 }
