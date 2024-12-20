@@ -23,11 +23,12 @@ namespace CEGES_MVC.Areas.Configuration.Controllers
         }
 
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            List<ListeEntreprisesVM> vm = _EntrepriseService.Configuration.GetEntreprisesAndCountsAsync();
+            List<ListeEntreprisesVM> vm = await _EntrepriseService.GetEntreprisesAndCountsAsync();
             return View(vm);
         }
+
 
         public async Task<IActionResult> Details(int id)
         {

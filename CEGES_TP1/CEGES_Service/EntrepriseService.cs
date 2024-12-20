@@ -6,12 +6,18 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using CEGES_Models;
+using CEGES_Core.ViewModels;
+using CEGES_Models;
+
 
 namespace CEGES_Service.IService
 {
     public class EntrepriseService : IEntrepriseService
     {
         private readonly CEGESDbContext _context;
+
+        public IEntrepriseService Configuration => throw new NotImplementedException();
 
         public EntrepriseService(CEGESDbContext context)
         {
@@ -25,7 +31,7 @@ namespace CEGES_Service.IService
                 {
                     Id = e.Id,
                     Nom = e.Nom,
-                    Groupes = e.groupes.Count()
+                    Groupes = e.Groupes.Count()
                 })
                 .ToListAsync();
         }
@@ -33,7 +39,7 @@ namespace CEGES_Service.IService
         public async Task<DetailEntrepriseVM> GetEntrepriseDetailAsync(int id)
         {
             var entreprise = await _context.Entreprises
-                .Include(e => e.groupes)
+                .Include(e => e.Groupes)
                 .ThenInclude(g => g.Equipements)
                 .FirstOrDefaultAsync(e => e.Id == id);
 
@@ -42,7 +48,7 @@ namespace CEGES_Service.IService
             return new DetailEntrepriseVM
             {
                 Entreprise = entreprise,
-                Groupes = entreprise.groupes.Select(g => new ListeGroupesVM
+                Groupes = entreprise.Groupes.Select(g => new ListeGroupesVM
                 {
                     Id = g.id,
                     Nom = g.Nom,
@@ -67,5 +73,7 @@ namespace CEGES_Service.IService
             _context.Entreprises.Update(entreprise);
             _context.SaveChanges();
         }
+
+      
     }
 }

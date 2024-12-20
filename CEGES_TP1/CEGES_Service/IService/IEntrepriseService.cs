@@ -1,14 +1,19 @@
 ﻿using CEGES_Models.ViewModels;
-using CEGES_MVC.Models;
+
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using CEGES_Models;
+using CEGES_MVC.Models;
+using CEGES_Core.ViewModels;
 
 namespace CEGES_Service.IService
 {
     public interface IEntrepriseService
     {
 
-        public List<ListeEntreprisesVM> GetEntreprisesAndCountsAsync();
+ 
+        public Task<List<ListeEntreprisesVM>> GetEntreprisesAndCountsAsync();
+
         public Task<DetailEntrepriseVM> GetEntrepriseDetailAsync(int id);
         public Task<Entreprise> GetEntrepriseAsync(int id);
         public Task AddEntrepriseAsync(Entreprise entreprise);

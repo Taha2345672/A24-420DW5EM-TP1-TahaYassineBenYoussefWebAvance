@@ -2,14 +2,12 @@
 using System.Collections.Generic;
 using CEGES_Models;
 using CEGES_MVC.Models;
-using CEGES_Models.ViewModels;
 
 namespace CEGES_Core.ViewModels
 {
-    public class DetailEntrepriseVM
+    public class ListePeriodesVM
     {
+        public Dictionary<int, List<Periode>> Periodes { get; set; }
         public Entreprise Entreprise { get; set; }
-        public List<ListeGroupesVM> Groupes { get; set; }
-       // public List<ApplicationUser> Analystes { get; set; }
     }
 }

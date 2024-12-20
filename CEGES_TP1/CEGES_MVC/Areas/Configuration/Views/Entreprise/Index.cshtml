@@ -1,51 +1,30 @@
-﻿@{
+﻿@model List<ListeEntreprisesVM>
+@{
     ViewData["Title"] = "Configuration des entreprises";
 }
 <h3>
     Liste des entreprises
 </h3>
 <div class="row">
-
-
-    <div class="col mb-4">
-        <div class="card h-100" style="min-width: 15rem; max-width: 18rem;">
-            <img src="/images/entreprise.png" class="card-img-top rounded" />
-            <div class="card-body">
-                <p class="card-title h5 text-center"><b style="color:#2c3e50">Entreprise exemple</b></p>
-                <div class="card-block">
-                    <div class="row no-gutters">
-                        <div class="col-md-7 text-right">
-                            Groupe&nbsp;:&nbsp;
-                        </div>
-                        <div class="col-md-5 text-left">
-                            1&nbsp;groupe
-                        </div>
-                    </div>
-                    <div class="row no-gutters">
-                        <div class="col-md-7 text-right">
-                            Équipement&nbsp;:&nbsp;
-                        </div>
-                        <div class="col-md-5 text-left">
-                            1&nbsp;équipement
-                        </div>
-                    </div>
-                    <div class="row no-gutters">
-                        <div class="col-md-7 text-right">
-                            Rapports&nbsp;:&nbsp;
-                        </div>
-                        <div class="col-md-5 text-left">
-                            9&nbsp;rapports
-                        </div>
+    @foreach (var entreprise in Model)
+    {
+        <div class="col mb-4">
+            <div class="card h-100" style="min-width: 15rem; max-width: 18rem;">
+                <img src="/images/entreprise.png" class="card-img-top rounded" />
+                <div class="card-body">
+                    <p class="card-title h5 text-center"><b style="color:#2c3e50">@entreprise.Nom</b></p>
+                    <div class="card-block">
+                        @await Html.PartialAsync("_DetailInfo", new DetailCountVM("Groupe", entreprise.Groupes, "s", "Aucun"))
+                        @await Html.PartialAsync("_DetailInfo", new DetailCountVM("Équipement", entreprise.Equipements, "s", "Aucun"))
+                        @await Html.PartialAsync("_DetailInfo", new DetailCountVM("Période", entreprise.Periodes, "s", "Aucune"))
                     </div>
                 </div>
-            </div>
-            <div class="card-footer text-center">
-                <a asp-action="Details" class="card-link">Details</a>
+                <div class="card-footer text-center">
+                    <a asp-action="Details" class="card-link" asp-route-id="@entreprise.Id">Details</a>
+                </div>
             </div>
         </div>
-    </div>
-
-
+    }
     <div class="col mb-4">
         <div class="card h-100" style="min-width: 15rem; max-width: 18rem;">
             <img src="/images/entreprise.png" class="card-img-top rounded" style="opacity: 0.25" />
