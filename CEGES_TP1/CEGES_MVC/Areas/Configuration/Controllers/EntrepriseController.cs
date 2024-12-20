@@ -15,7 +15,7 @@ namespace CEGES_MVC.Areas.Configuration.Controllers
     public class EntrepriseController : Controller
     {
 
-        private readonly IEntrepriseService _EntrepriseService;
+        public readonly IEntrepriseService _EntrepriseService;
 
         public EntrepriseController(IEntrepriseService EntrepriseService)
         {

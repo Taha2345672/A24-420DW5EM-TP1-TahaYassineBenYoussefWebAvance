@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace CEGES_Service.IService
 {
-    public class EntrepriseService //:IEntrepriseService
+    public class EntrepriseService : IEntrepriseService
     {
         private readonly CEGESDbContext _context;
 
