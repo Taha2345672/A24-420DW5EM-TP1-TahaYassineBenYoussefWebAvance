@@ -1,23 +1,29 @@
-﻿
-using CEGES_Models;
+﻿using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
+using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
-namespace CEGES_MVC.Models
+namespace CEGES_Models.Models
 {
     public class Groupe
     {
         public int Id { get; set; }
-        public string Nom { get; set; }
+
+        [Required(ErrorMessage = "Le nom du groupe est obligatoire.")]
+        [StringLength(100, ErrorMessage = "Le nom du groupe ne peut pas dépasser 100 caractères.")]
+        public string NomGroupe { get; set; }
+
+        [ForeignKey("Entreprise")]
         public int EntrepriseId { get; set; }
-        public Entreprise Entreprise { get; set; } // Relation unique avec Entreprise
 
-        public ICollection<Periode> Periodes { get; set; } = new List<Periode>();
-        public ICollection<Equipement> Equipements { get; set; } = new List<Equipement>();
+        [ValidateNever]
+        public Entreprise Entreprise { get; set; }
 
-        // Calcul dynamique des nombres
-        public int NombreEquipements => Equipements?.Count ?? 0;
-        public int NombrePeriodes => Periodes?.Count ?? 0;
+        [ValidateNever]
+        public IList<Equipement> Equipements { get; set; } = new List<Equipement>();
     }
-
 }
-

@@ -1,21 +1,35 @@
-﻿using System.Collections.Generic;
-using System.Text.RegularExpressions;
+﻿using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
+using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
-namespace CEGES_MVC.Models
+namespace CEGES_Models.Models
 {
-    public class Equipement
+    public abstract class Equipement
     {
         public int Id { get; set; }
-        public string TypeEquipement { get; set; }
-        public Groupe Groupes { get; set; }
 
-        public ICollection<EmissionMensuelle> EmissionsMensuelles { get; set; } = new List<EmissionMensuelle>();
+        [Required(ErrorMessage = "Le nom de l'équipement est obligatoire.")]
+        [StringLength(100, ErrorMessage = "Le nom de l'équipement ne peut pas dépasser 100 caractères.")]
+        public string NomEquipement { get; set; }
 
+        [Required(ErrorMessage = "La mesure de l'équipement est obligatoire.")]
+        public double Mesure { get; set; }
+
+        [StringLength(500, ErrorMessage = "La description ne peut pas dépasser 500 caractères.")]
+        public string? Description { get; set; }
+
+        [Required(ErrorMessage = "La période est obligatoire.")]
+        public int Periode { get; set; }
+
+        [ForeignKey("Groupe")]
         public int GroupeId { get; set; }
 
-
-
-
+        [ValidateNever]
+        public Groupe Groupe { get; set; }
     }
-
 }
