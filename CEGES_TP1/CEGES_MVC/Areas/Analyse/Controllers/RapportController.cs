@@ -20,7 +20,7 @@ namespace CEGES_MVC.Areas.Analyse.Controllers
             return View();
         }
 
-        public async Task<IActionResult> Liste(int id)
+        public async Task<IActionResult> Liste(int Id)
         {
             await Task.CompletedTask;
             return View();
@@ -58,7 +58,7 @@ namespace CEGES_MVC.Areas.Analyse.Controllers
             }
             if (vm.Id > 0)
             {
-                return View(nameof(Liste), new { id = vm.Id });
+                return View(nameof(Liste), new { Id = vm.Id });
             } 
             else 
             {

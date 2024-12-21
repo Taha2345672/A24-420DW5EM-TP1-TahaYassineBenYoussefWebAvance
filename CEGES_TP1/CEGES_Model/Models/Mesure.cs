@@ -2,7 +2,7 @@
 using System;
 using System.ComponentModel.DataAnnotations;
 
-namespace CEGES_Core
+namespace CEGES_Models
 {
     public class Mesure
     {

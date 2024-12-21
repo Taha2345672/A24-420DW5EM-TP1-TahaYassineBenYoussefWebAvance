@@ -3,7 +3,8 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using CEGES_MVC.Models;
 using CEGES_Models.Models;
-using CEGES_Core;
+using CEGES_Models;
+
 
 
 
@@ -29,6 +30,27 @@ namespace CEGES_DataAccess.data
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
+
+
+            // Configuration des relations
+            modelBuilder.Entity<Mesure>()
+                .HasOne(m => m.Periode)
+                .WithMany(p => p.Mesures)
+                .HasForeignKey(m => m.PeriodeId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<Equipement>()
+                .HasOne(e => e.Groupes)
+                .WithMany(g => g.Equipements)
+                .HasForeignKey(e => e.GroupeId)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            modelBuilder.Entity<Groupe>()
+                .HasOne(g => g.Entreprise)
+                .WithMany(e => e.Groupes)
+                .HasForeignKey(g => g.EntrepriseId)
+                .OnDelete(DeleteBehavior.Restrict);
+
 
             // Entreprises
             modelBuilder.Entity<Entreprise>().HasData(

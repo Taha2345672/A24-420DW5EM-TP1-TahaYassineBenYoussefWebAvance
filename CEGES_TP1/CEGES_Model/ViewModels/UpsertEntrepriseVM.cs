@@ -1,9 +1,11 @@
-﻿
+﻿using CEGES_MVC.Models;
+using System;
 using System.Collections.Generic;
-using CEGES_Models;
-using CEGES_MVC.Models;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
-namespace CEGES_Core.ViewModels
+namespace CEGES_Models.ViewModels
 {
     public class UpsertEntrepriseVM
     {

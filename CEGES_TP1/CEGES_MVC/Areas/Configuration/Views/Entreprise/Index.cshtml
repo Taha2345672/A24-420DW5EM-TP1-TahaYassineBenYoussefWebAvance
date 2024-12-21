@@ -14,11 +14,21 @@
                 <img src="/images/entreprise.png" class="card-img-top rounded" />
                 <div class="card-body">
                     <p class="card-title h5 text-center"><b style="color:#2c3e50">@entreprise.Nom</b></p>
-                    <div class="card-block">
+                   @*  <div class="card-block">
                         @await Html.PartialAsync("_DetailInfo", new DetailCountVM("Groupe", entreprise.Groupes, "s", "Aucun"))
                         @await Html.PartialAsync("_DetailInfo", new DetailCountVM("Équipement", entreprise.Equipements, "s", "Aucun"))
                         @await Html.PartialAsync("_DetailInfo", new DetailCountVM("Période", entreprise.Periodes, "s", "Aucune"))
+                    </div> *@
+
+
+
+
+                    <div class="card-block">
+                        <p><strong>Groupes :</strong> @entreprise.Groupes</p>
+                        <p><strong>Équipements :</strong> @entreprise.Equipements</p>
+                        <p><strong>Périodes :</strong> @entreprise.Periodes</p>
                     </div>
+
                 </div>
                 <div class="card-footer text-center">
                     <a asp-action="Details" class="card-link" asp-route-id="@entreprise.Id">Details</a>

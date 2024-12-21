@@ -2,7 +2,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace CEGES_Core
+namespace CEGES_Models
 {
     public class Periode
     {
@@ -13,6 +13,9 @@ namespace CEGES_Core
         public List<Mesure> Mesures { get; set; }
         public int EntrepriseId { get; set; }
         public Entreprise Entreprise { get; set; }
+
+        
+
     }
 
 }

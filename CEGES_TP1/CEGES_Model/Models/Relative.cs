@@ -10,7 +10,7 @@ namespace CEGES_Models.Models
     public class Relative : Equipement
     {
 
-        public int id { get; set; }
+        public int Id { get; set; }
         public double EmissionIntensiteZero { get; set; }
         public double EmissionIntensiteMax { get; set; }
     }

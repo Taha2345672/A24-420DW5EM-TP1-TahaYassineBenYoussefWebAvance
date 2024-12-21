@@ -1,9 +1,10 @@
-﻿using CEGES_Core;
+﻿
 using System.Collections.Generic;
 using CEGES_Models;
 using CEGES_MVC.Models;
 
-namespace CEGES_Core.ViewModels
+namespace CEGES_Models.ViewModels
+
 {
     public class ListePeriodesVM
     {

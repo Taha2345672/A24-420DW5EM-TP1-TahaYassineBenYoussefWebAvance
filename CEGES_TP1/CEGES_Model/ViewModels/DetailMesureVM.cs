@@ -1,4 +1,4 @@
-﻿namespace CEGES_Core.ViewModels
+﻿namespace CEGES_Models.ViewModels
 {
     public class DetailMesureVM
     {

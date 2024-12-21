@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using CEGES_Models;
 using CEGES_MVC.Models;
-using CEGES_Core.ViewModels;
+
 
 namespace CEGES_Service.IService
 {
@@ -14,8 +14,8 @@ namespace CEGES_Service.IService
  
         public Task<List<ListeEntreprisesVM>> GetEntreprisesAndCountsAsync();
 
-        public Task<DetailEntrepriseVM> GetEntrepriseDetailAsync(int id);
-        public Task<Entreprise> GetEntrepriseAsync(int id);
+        public Task<DetailEntrepriseVM> GetEntrepriseDetailAsync(int Id);
+        public Task<Entreprise> GetEntrepriseAsync(int Id);
         public Task AddEntrepriseAsync(Entreprise entreprise);
         public void UpdateEntreprise(Entreprise entreprise);
        // public Task<Groupe> GetGroupeDetailsAsync(int id);

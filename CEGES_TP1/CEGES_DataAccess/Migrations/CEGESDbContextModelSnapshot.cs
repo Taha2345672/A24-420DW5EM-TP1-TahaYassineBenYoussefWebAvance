@@ -22,91 +22,6 @@ namespace CEGES_DataAccess.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("CEGES_Core.Mesure", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<int>("EquipementId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("PeriodeId")
-                        .HasColumnType("int");
-
-                    b.Property<decimal>("Valeur")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("EquipementId");
-
-                    b.HasIndex("PeriodeId");
-
-                    b.ToTable("Mesures");
-                });
-
-            modelBuilder.Entity("CEGES_Core.Periode", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<DateTime>("Debut")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int>("EntrepriseId")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("Fin")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int?>("GroupeId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Nom")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("EntrepriseId");
-
-                    b.HasIndex("GroupeId");
-
-                    b.ToTable("Periodes");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Debut = new DateTime(2022, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            EntrepriseId = 1,
-                            Fin = new DateTime(2022, 1, 31, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Nom = "Période 1"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            Debut = new DateTime(2022, 2, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            EntrepriseId = 1,
-                            Fin = new DateTime(2022, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Nom = "Période 2"
-                        },
-                        new
-                        {
-                            Id = 3,
-                            Debut = new DateTime(2022, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            EntrepriseId = 2,
-                            Fin = new DateTime(2022, 1, 31, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Nom = "Période 1"
-                        });
-                });
-
             modelBuilder.Entity("CEGES_MVC.Models.EmissionMensuelle", b =>
                 {
                     b.Property<int>("Id")
@@ -259,9 +174,6 @@ namespace CEGES_DataAccess.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("NombreGroupe")
-                        .HasColumnType("int");
-
                     b.HasKey("Id");
 
                     b.HasIndex("EntrepriseId");
@@ -273,29 +185,110 @@ namespace CEGES_DataAccess.Migrations
                         {
                             Id = 1,
                             EntrepriseId = 1,
-                            Nom = "Finance",
-                            NombreGroupe = 0
+                            Nom = "Finance"
                         },
                         new
                         {
                             Id = 2,
                             EntrepriseId = 2,
-                            Nom = "Manufacturing",
-                            NombreGroupe = 0
+                            Nom = "Manufacturing"
                         },
                         new
                         {
                             Id = 3,
                             EntrepriseId = 3,
-                            Nom = "Delivery",
-                            NombreGroupe = 0
+                            Nom = "Delivery"
                         },
                         new
                         {
                             Id = 4,
                             EntrepriseId = 3,
-                            Nom = "Kitchen",
-                            NombreGroupe = 0
+                            Nom = "Kitchen"
+                        });
+                });
+
+            modelBuilder.Entity("CEGES_Models.Mesure", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("EquipementId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("PeriodeId")
+                        .HasColumnType("int");
+
+                    b.Property<decimal>("Valeur")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("EquipementId");
+
+                    b.HasIndex("PeriodeId");
+
+                    b.ToTable("Mesures");
+                });
+
+            modelBuilder.Entity("CEGES_Models.Periode", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime>("Debut")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("EntrepriseId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("Fin")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int?>("GroupeId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Nom")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("EntrepriseId");
+
+                    b.HasIndex("GroupeId");
+
+                    b.ToTable("Periodes");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Debut = new DateTime(2022, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            EntrepriseId = 1,
+                            Fin = new DateTime(2022, 1, 31, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Nom = "Période 1"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Debut = new DateTime(2022, 2, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            EntrepriseId = 1,
+                            Fin = new DateTime(2022, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Nom = "Période 2"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Debut = new DateTime(2022, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            EntrepriseId = 2,
+                            Fin = new DateTime(2022, 1, 31, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Nom = "Période 1"
                         });
                 });
 
@@ -310,9 +303,6 @@ namespace CEGES_DataAccess.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("id")
-                        .HasColumnType("int");
-
                     b.HasDiscriminator().HasValue("Lineaire");
                 });
 
@@ -323,50 +313,7 @@ namespace CEGES_DataAccess.Migrations
                     b.Property<double>("Quantite")
                         .HasColumnType("float");
 
-                    b.Property<int>("id")
-                        .HasColumnType("int");
-
-                    b.ToTable("Equipements", t =>
-                        {
-                            t.Property("id")
-                                .HasColumnName("Constante_id");
-                        });
-
                     b.HasDiscriminator().HasValue("Constante");
-                });
-
-            modelBuilder.Entity("CEGES_Core.Mesure", b =>
-                {
-                    b.HasOne("CEGES_MVC.Models.Equipement", "Equipement")
-                        .WithMany()
-                        .HasForeignKey("EquipementId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("CEGES_Core.Periode", "Periode")
-                        .WithMany("Mesures")
-                        .HasForeignKey("PeriodeId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Equipement");
-
-                    b.Navigation("Periode");
-                });
-
-            modelBuilder.Entity("CEGES_Core.Periode", b =>
-                {
-                    b.HasOne("CEGES_MVC.Models.Entreprise", "Entreprise")
-                        .WithMany("Periodes")
-                        .HasForeignKey("EntrepriseId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("CEGES_MVC.Models.Groupe", null)
-                        .WithMany("Periodes")
-                        .HasForeignKey("GroupeId");
-
-                    b.Navigation("Entreprise");
                 });
 
             modelBuilder.Entity("CEGES_MVC.Models.EmissionMensuelle", b =>
@@ -393,16 +340,47 @@ namespace CEGES_DataAccess.Migrations
 
             modelBuilder.Entity("CEGES_MVC.Models.Groupe", b =>
                 {
-                    b.HasOne("CEGES_MVC.Models.Entreprise", null)
+                    b.HasOne("CEGES_MVC.Models.Entreprise", "Entreprise")
                         .WithMany("Groupes")
+                        .HasForeignKey("EntrepriseId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("Entreprise");
+                });
+
+            modelBuilder.Entity("CEGES_Models.Mesure", b =>
+                {
+                    b.HasOne("CEGES_MVC.Models.Equipement", "Equipement")
+                        .WithMany()
+                        .HasForeignKey("EquipementId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("CEGES_Models.Periode", "Periode")
+                        .WithMany("Mesures")
+                        .HasForeignKey("PeriodeId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("Equipement");
+
+                    b.Navigation("Periode");
+                });
+
+            modelBuilder.Entity("CEGES_Models.Periode", b =>
+                {
+                    b.HasOne("CEGES_MVC.Models.Entreprise", "Entreprise")
+                        .WithMany("Periodes")
                         .HasForeignKey("EntrepriseId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-                });
 
-            modelBuilder.Entity("CEGES_Core.Periode", b =>
-                {
-                    b.Navigation("Mesures");
+                    b.HasOne("CEGES_MVC.Models.Groupe", null)
+                        .WithMany("Periodes")
+                        .HasForeignKey("GroupeId");
+
+                    b.Navigation("Entreprise");
                 });
 
             modelBuilder.Entity("CEGES_MVC.Models.Entreprise", b =>
@@ -422,6 +400,11 @@ namespace CEGES_DataAccess.Migrations
                     b.Navigation("Equipements");
 
                     b.Navigation("Periodes");
+                });
+
+            modelBuilder.Entity("CEGES_Models.Periode", b =>
+                {
+                    b.Navigation("Mesures");
                 });
 #pragma warning restore 612, 618
         }

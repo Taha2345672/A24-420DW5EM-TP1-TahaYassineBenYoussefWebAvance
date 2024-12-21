@@ -7,7 +7,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using CEGES_Models;
-using CEGES_Core.ViewModels;
 using CEGES_Models;
 
 
@@ -31,17 +30,19 @@ namespace CEGES_Service.IService
                 {
                     Id = e.Id,
                     Nom = e.Nom,
-                    Groupes = e.Groupes.Count()
+                    Groupes = e.Groupes.Count(),
+                      Equipements = e.Groupes.SelectMany(g => g.Equipements).Count(),
+                    Periodes = e.Groupes.SelectMany(g => g.Periodes).Count()
                 })
                 .ToListAsync();
         }
 
-        public async Task<DetailEntrepriseVM> GetEntrepriseDetailAsync(int id)
+        public async Task<DetailEntrepriseVM> GetEntrepriseDetailAsync(int Id)
         {
             var entreprise = await _context.Entreprises
                 .Include(e => e.Groupes)
                 .ThenInclude(g => g.Equipements)
-                .FirstOrDefaultAsync(e => e.Id == id);
+                .FirstOrDefaultAsync(e => e.Id == Id);
 
             if (entreprise == null) return null;
 
@@ -57,9 +58,9 @@ namespace CEGES_Service.IService
             };
         }
 
-        public async Task<Entreprise> GetEntrepriseAsync(int id)
+        public async Task<Entreprise> GetEntrepriseAsync(int Id)
         {
-            return await _context.Entreprises.FirstOrDefaultAsync(e => e.Id == id);
+            return await _context.Entreprises.FirstOrDefaultAsync(e => e.Id == Id);
         }
 
         public async Task AddEntrepriseAsync(Entreprise entreprise)

@@ -1,5 +1,4 @@
 ﻿using CEGES.Models;
-using CEGES_Core.ViewModels;
 using CEGES_Models.ViewModels;
 using CEGES_MVC.Models;
 using CEGES_Service.IService;
@@ -31,9 +30,9 @@ namespace CEGES_MVC.Areas.Configuration.Controllers
         }
 
 
-        public async Task<IActionResult> Details(int id)
+        public async Task<IActionResult> Details(int Id)
         {
-           DetailEntrepriseVM vm = await _EntrepriseService.Configuration.GetEntrepriseDetailAsync(id);
+           DetailEntrepriseVM vm = await _EntrepriseService.Configuration.GetEntrepriseDetailAsync(Id);
 
             if (vm.Entreprise == null)
             {
@@ -42,16 +41,16 @@ namespace CEGES_MVC.Areas.Configuration.Controllers
             return View(vm);
         }
 
-        public async Task<IActionResult> Upsert(int? id)
+        public async Task<IActionResult> Upsert(int? Id)
         {
-           EntrepriseFormVM vm = new EntrepriseFormVM();
-            if (id == null)
+           UpsertEntrepriseVM vm = new UpsertEntrepriseVM();
+            if (Id == null)
             {
                 vm.Entreprise = new Entreprise();
             }
             else
             {
-                vm.Entreprise = await _EntrepriseService.Configuration.GetEntrepriseAsync(id.GetValueOrDefault());
+                vm.Entreprise = await _EntrepriseService.Configuration.GetEntrepriseAsync(Id.GetValueOrDefault());
             }
 
             if (vm.Entreprise == null)
@@ -63,7 +62,7 @@ namespace CEGES_MVC.Areas.Configuration.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Upsert(EntrepriseFormVM entrepriseVM)
+        public async Task<IActionResult> Upsert(UpsertEntrepriseVM entrepriseVM)
         {
             if (ModelState.IsValid)
             {
@@ -74,11 +73,12 @@ namespace CEGES_MVC.Areas.Configuration.Controllers
                 else
                 {
                     _EntrepriseService.Configuration.UpdateEntreprise(entrepriseVM.Entreprise);
+                    _EntrepriseService.Configuration.UpdateEntreprise(entrepriseVM.Entreprise);
                 }
                 if (entrepriseVM.SelectAnalystes.Count > 3)
                 {
                     // Message d'erreur "TROP D'ANALYSTES SÉLECTIONNÉS
-                    return RedirectToAction(nameof(Upsert), new { id = entrepriseVM.Entreprise.Id });
+                    return RedirectToAction(nameof(Upsert), new { Id = entrepriseVM.Entreprise.Id });
                 }
                 try
                 {
@@ -86,9 +86,9 @@ namespace CEGES_MVC.Areas.Configuration.Controllers
                 }
                 catch (Exception)
                 {
-                    return RedirectToAction(nameof(Upsert), new { id = entrepriseVM.Entreprise.Id });
+                    return RedirectToAction(nameof(Upsert), new { Id = entrepriseVM.Entreprise.Id });
                 }
-                return RedirectToAction(nameof(Details), new { id = entrepriseVM.Entreprise.Id });
+                return RedirectToAction(nameof(Details), new { Id = entrepriseVM.Entreprise.Id });
             }
             return View(entrepriseVM);
         }

@@ -2,7 +2,8 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
-namespace CEGES_Core.ViewModels
+namespace CEGES_Models.ViewModels
+
 {
     public class ListeMesuresVM
     {

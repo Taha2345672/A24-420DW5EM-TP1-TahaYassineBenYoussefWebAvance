@@ -1,10 +1,10 @@
-﻿using CEGES_Core;
+﻿
 using System.Collections.Generic;
 using CEGES_Models;
 using CEGES_MVC.Models;
 using CEGES_Models.ViewModels;
 
-namespace CEGES_Core.ViewModels
+namespace CEGES_Models.ViewModels
 {
     public class DetailEntrepriseVM
     {

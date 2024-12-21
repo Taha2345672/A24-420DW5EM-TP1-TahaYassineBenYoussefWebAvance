@@ -15,20 +15,20 @@ namespace CEGES_MVC.Areas.Configuration.Controllers
 
         }
 
-        public async Task<IActionResult> Details(int id)
+        public async Task<IActionResult> Details(int Id)
         {
             await Task.CompletedTask;
             return View();
         }
 
-        public async Task<IActionResult> Insert(int id)
+        public async Task<IActionResult> Insert(int Id)
         {
             await Task.CompletedTask;
             VM_Vide vm = new VM_Vide();
             return View("Upsert", vm);
         }
 
-        public async Task<IActionResult> Update(int id)
+        public async Task<IActionResult> Update(int Id)
         {
             await Task.CompletedTask;
             VM_Vide vm = new VM_Vide();
@@ -50,7 +50,7 @@ namespace CEGES_MVC.Areas.Configuration.Controllers
                 {
                     // Modifier le groupe
                 }
-                return RedirectToAction(nameof(Details), new { id = vm.Id });
+                return RedirectToAction(nameof(Details), new { Id = vm.Id });
             }
             return View(vm);
         }

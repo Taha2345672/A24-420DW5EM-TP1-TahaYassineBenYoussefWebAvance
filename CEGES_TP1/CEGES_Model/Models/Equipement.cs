@@ -7,8 +7,10 @@ namespace CEGES_MVC.Models
     {
         public int Id { get; set; }
         public string TypeEquipement { get; set; }
-        public Groupe groupes { get; set; } 
-        public ICollection<EmissionMensuelle> EmissionsMensuelles { get; set; }
+        public Groupe Groupes { get; set; }
+
+        public ICollection<EmissionMensuelle> EmissionsMensuelles { get; set; } = new List<EmissionMensuelle>();
+
         public int GroupeId { get; set; }
 
 
