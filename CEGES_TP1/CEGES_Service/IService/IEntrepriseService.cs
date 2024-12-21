@@ -1,36 +1,16 @@
-﻿using CEGES_Models.ViewModels;
-
-using System.Collections.Generic;
-using System.Threading.Tasks;
+﻿
 using CEGES_Models;
-using CEGES_MVC.Models;
 
 
-namespace CEGES_Service.IService
+
+namespace CEGES_Services
 {
-    public interface IEntrepriseService
+    public interface IEntrepriseService : IServiceBaseAsync<Entreprise>
     {
-
- 
-        public Task<List<ListeEntreprisesVM>> GetEntreprisesAndCountsAsync();
-
-        public Task<DetailEntrepriseVM> GetEntrepriseDetailAsync(int Id);
-        public Task<Entreprise> GetEntrepriseAsync(int Id);
-        public Task AddEntrepriseAsync(Entreprise entreprise);
-        public void UpdateEntreprise(Entreprise entreprise);
-       // public Task<Groupe> GetGroupeDetailsAsync(int id);
-        //public Task<Equipement> GetEquipementDetailAsync(int id);
-        //public Task<Groupe> GetGroupeAsync(int id);
-        //public Task<Equipement> NewEquipementAsync(int id, string type);
-        //public Task AddEquipementAsync(Equipement equipement);
-        //public Task<Groupe> NewGroupeAsync(int entrepriseId);
-        //public void UpdateEquipement(Equipement equipement);
-        //public Task<Groupe> GetGroupeEtEntrepriseAsync(int id);
-        //public Task AddGroupeAsync(Groupe groupe);
-       // public void UpdateGroupe(Groupe groupe);
-       // public Task EditAnalystesEntrepriseAsync(int entrepriseId, List<string> analysteIds);
-        public IEntrepriseService Configuration { get; }
-
-
+        Task AddEntrepriseAsync(Entreprise entreprise);
+        Task<IReadOnlyList<Entreprise>> GetAllIndexAsync();
+        Task<IReadOnlyList<Entreprise>> GetAllEntreprisesByIdAsync(int id); 
+        Task<Entreprise> GetEntrepriseByIdAsync(int id);
+        Task EditAsync(Entreprise entreprise);
     }
 }

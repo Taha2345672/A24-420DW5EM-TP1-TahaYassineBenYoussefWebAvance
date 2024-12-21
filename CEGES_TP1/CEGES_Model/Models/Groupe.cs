@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
+﻿
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CEGES_Models.Models
+namespace CEGES_Models
 {
     public class Groupe
     {
@@ -20,10 +20,10 @@ namespace CEGES_Models.Models
         [ForeignKey("Entreprise")]
         public int EntrepriseId { get; set; }
 
-        [ValidateNever]
+       // [ValidateNever]
         public Entreprise Entreprise { get; set; }
 
-        [ValidateNever]
+        //[ValidateNever]
         public IList<Equipement> Equipements { get; set; } = new List<Equipement>();
     }
 }

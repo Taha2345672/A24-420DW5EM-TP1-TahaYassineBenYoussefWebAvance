@@ -1,96 +1,103 @@
-﻿using CEGES.Models;
+﻿using Microsoft.AspNetCore.Mvc;
+using System.Threading.Tasks;
 using CEGES_Models.ViewModels;
-using CEGES_MVC.Models;
-using CEGES_Service.IService;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using System;
+
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using CEGES_Models;
+using System;
+using CEGES_Services;
 
-namespace CEGES_MVC.Areas.Configuration.Controllers
+
+namespace CEGES_Areas.Configuration.Controllers
 {
     [Area("Configuration")]
     public class EntrepriseController : Controller
     {
+        private readonly IEntrepriseService _entrepriseService;
+        private readonly IGroupeService _groupeService;
+        private readonly IEquipementConstantesService _equipementConstantesService;
+        private readonly IEquipementLineairesService _equipementLineairesService;
+        private readonly IEquipementRelativesService _equipementRelativesService;
 
-        public readonly IEntrepriseService _EntrepriseService;
 
-        public EntrepriseController(IEntrepriseService EntrepriseService)
+        public EntrepriseController(IEntrepriseService entrepriseService, IGroupeService groupeService, IEquipementConstantesService equipementConstantesService, IEquipementLineairesService equipementLineairesService, IEquipementRelativesService equipementRelativesService)
         {
-            _EntrepriseService = EntrepriseService;
+            _entrepriseService = entrepriseService;
+            _groupeService = groupeService;
+            _equipementConstantesService = equipementConstantesService;
+            _equipementLineairesService = equipementLineairesService;
+            _equipementRelativesService = equipementRelativesService;
         }
-
 
         public async Task<IActionResult> Index()
         {
-            List<ListeEntreprisesVM> vm = await _EntrepriseService.GetEntreprisesAndCountsAsync();
-            return View(vm);
+            var entreprise = await _entrepriseService.GetAllIndexAsync();
+            var entrepriseVM = entreprise.Select(entreprise => new Entreprise_VM
+            {
+                Entreprise = entreprise,
+                NombreGroupes = entreprise.Groupes.Count(),
+                NombreEquipement = entreprise.Groupes.SelectMany(g => g.Equipements).Count(),
+                NombrePeriodesMesurees = entreprise.Groupes.SelectMany(g => g.Equipements).Sum(e => e.Periode)
+
+            }).OrderBy(entrepriseVM => entrepriseVM.Entreprise.NomEntreprise);
+
+            return View(entrepriseVM);
         }
 
-
-        public async Task<IActionResult> Details(int Id)
+        public async Task<IActionResult> Details(int id)
         {
-           DetailEntrepriseVM vm = await _EntrepriseService.Configuration.GetEntrepriseDetailAsync(Id);
+            await Task.CompletedTask;
 
-            if (vm.Entreprise == null)
-            {
-                return NotFound();
-            }
-            return View(vm);
+            return View(await _entrepriseService.GetEntrepriseByIdAsync(id));
         }
 
-        public async Task<IActionResult> Upsert(int? Id)
+        public async Task<IActionResult> Upsert(int? id)
         {
-           UpsertEntrepriseVM vm = new UpsertEntrepriseVM();
-            if (Id == null)
+            Entreprise_VM vm = new Entreprise_VM();
+
+            if (id == null)
             {
-                vm.Entreprise = new Entreprise();
+                
+                return View(vm);
             }
             else
             {
-                vm.Entreprise = await _EntrepriseService.Configuration.GetEntrepriseAsync(Id.GetValueOrDefault());
-            }
+                
+                var entreprise = await _entrepriseService.GetEntrepriseByIdAsync(id.Value);
+                if (vm.Entreprise == null)
+                {
+                    return NotFound(); 
+                }
 
-            if (vm.Entreprise == null)
-            {
-                return NotFound();
+                vm.Entreprise = entreprise;
+
+                return View(vm);
             }
-            return View(vm);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Upsert(UpsertEntrepriseVM entrepriseVM)
+        public async Task<IActionResult> Upsert(Entreprise_VM vm)
         {
             if (ModelState.IsValid)
             {
-                if (entrepriseVM.Entreprise.Id == 0)
+
+                if (vm.Entreprise.Id == 0)
                 {
-                    await _EntrepriseService.Configuration.AddEntrepriseAsync(entrepriseVM.Entreprise);
+                    // il faut creer validation Entreprise UNIQUE (GA)
+                    await _entrepriseService.AddEntrepriseAsync(vm.Entreprise);
                 }
                 else
                 {
-                    _EntrepriseService.Configuration.UpdateEntreprise(entrepriseVM.Entreprise);
-                    _EntrepriseService.Configuration.UpdateEntreprise(entrepriseVM.Entreprise);
+                    
+                    await _entrepriseService.EditAsync(vm.Entreprise);
                 }
-                if (entrepriseVM.SelectAnalystes.Count > 3)
-                {
-                    // Message d'erreur "TROP D'ANALYSTES SÉLECTIONNÉS
-                    return RedirectToAction(nameof(Upsert), new { Id = entrepriseVM.Entreprise.Id });
-                }
-                try
-                {
-                    //await _EntrepriseService.Configuration.EditAnalystesEntrepriseAsync(entrepriseVM.Entreprise.Id, entrepriseVM.SelectAnalystes);
-                }
-                catch (Exception)
-                {
-                    return RedirectToAction(nameof(Upsert), new { Id = entrepriseVM.Entreprise.Id });
-                }
-                return RedirectToAction(nameof(Details), new { Id = entrepriseVM.Entreprise.Id });
+                return RedirectToAction(nameof(Details), new { id = vm.Entreprise.Id });
             }
-            return View(entrepriseVM);
+            return View(vm);
         }
+
     }
 }

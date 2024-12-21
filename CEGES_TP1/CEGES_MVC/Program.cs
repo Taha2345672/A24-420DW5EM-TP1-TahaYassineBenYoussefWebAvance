@@ -6,8 +6,9 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
-using CEGES_DataAccess.data;
-using CEGES_Service.IService;
+using CEGES_DataAccess;
+using CEGES_DataAccess;
+using CEGES_Services;
 
 
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
@@ -21,11 +22,12 @@ builder.Services.AddControllersWithViews()
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"))
 );
 
-builder.Services.AddScoped<IEntrepriseService, EntrepriseService>();
-builder.Services.AddIdentity<IdentityUser, IdentityRole>()
-               .AddDefaultTokenProviders().AddDefaultUI()
-               .AddEntityFrameworkStores<CEGESDbContext>();
-
+builder.Services.AddScoped(typeof(IServiceBaseAsync<>), typeof(ServiceBase<>));
+builder.Services.AddScoped<IEntrepriseService, IEntrepriseService>();
+builder.Services.AddScoped<IGroupeService, GroupeService>();
+builder.Services.AddScoped<IEquipementConstantesService, EquipementConstantesService>();
+builder.Services.AddScoped<IEquipementLineairesService, EquipementLineairesService>();
+builder.Services.AddScoped<IEquipementRelativesService, EquipementRelativesService>();
 
 
 builder.Services.AddDistributedMemoryCache();
