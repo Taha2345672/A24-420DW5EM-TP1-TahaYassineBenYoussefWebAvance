@@ -22,11 +22,11 @@ builder.Services.AddControllersWithViews()
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"))
 );
 
-//builder.Services.AddScoped(typeof(IServiceBaseAsync<>), typeof(ServiceBase<>));
-//builder.Services.AddScoped<IEntrepriseService, IEntrepriseService>();
+builder.Services.AddScoped(typeof(IServiceBaseAsync<>), typeof(ServiceBase<>));
+builder.Services.AddScoped<IEntrepriseService, IEntrepriseService>();
 //builder.Services.AddScoped<IGroupeService, GroupeService>();
 //builder.Services.AddScoped<IEquipementConstantesService, EquipementConstantesService>();
-//builder.Services.AddScoped<IEquipementLineairesService, EquipementLineairesService>();
+builder.Services.AddScoped<IEquipementLineairesService, EquipementLineairesService>();
 //builder.Services.AddScoped<IEquipementRelativesService, EquipementRelativesService>();
 
 
