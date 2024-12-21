@@ -1,4 +1,5 @@
 ﻿using CEGES.Models;
+using CEGES_Core.ViewModels;
 using CEGES_Models.ViewModels;
 using CEGES_MVC.Models;
 using CEGES_Service.IService;
@@ -32,7 +33,7 @@ namespace CEGES_MVC.Areas.Configuration.Controllers
 
         public async Task<IActionResult> Details(int id)
         {
-            DetailEntrepriseVM vm = await _EntrepriseService.Configuration.GetEntrepriseDetailAsync(id);
+           DetailEntrepriseVM vm = await _EntrepriseService.Configuration.GetEntrepriseDetailAsync(id);
 
             if (vm.Entreprise == null)
             {

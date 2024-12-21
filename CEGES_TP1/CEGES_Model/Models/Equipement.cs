@@ -5,10 +5,15 @@ namespace CEGES_MVC.Models
 {
     public class Equipement
     {
-        public int id { get; set; }
+        public int Id { get; set; }
         public string TypeEquipement { get; set; }
         public Groupe groupes { get; set; } 
         public ICollection<EmissionMensuelle> EmissionsMensuelles { get; set; }
+        public int GroupeId { get; set; }
+
+
+
+
     }
 
 }

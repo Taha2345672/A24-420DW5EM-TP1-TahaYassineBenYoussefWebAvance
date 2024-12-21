@@ -50,7 +50,7 @@ namespace CEGES_Service.IService
                 Entreprise = entreprise,
                 Groupes = entreprise.Groupes.Select(g => new ListeGroupesVM
                 {
-                    Id = g.id,
+                    Id = g.Id,
                     Nom = g.Nom,
                     Equipements = g.Equipements.Count()
                 }).ToList()

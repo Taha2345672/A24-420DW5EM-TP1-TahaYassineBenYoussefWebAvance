@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using CEGES_MVC.Models;
 using CEGES_Models.Models;
+using CEGES_Core;
 
 
 
@@ -22,47 +23,48 @@ namespace CEGES_DataAccess.data
         public DbSet<Lineaire> Lineaires { get; set; }
         public DbSet<EmissionMensuelle> EmissionMensuelles { get; set; }
 
-        //Cette méthode permet d'ajouter des données par défaut dans la base de données
-        //protected override void OnModelCreating(ModelBuilder modelBuilder)
-        //{
-        //    base.OnModelCreating(modelBuilder); // Appeler la méthode de base
+        public DbSet<Mesure> Mesures { get; set; }
+        public DbSet<Periode> Periodes { get; set; }
 
-        //    Ajouter des données de seed pour l'entité 'Entreprise'
-        //    modelBuilder.Entity<Entreprise>().HasData(
-        //        new Entreprise { id = 1, Nom = "Entreprise A" },
-        //        new Entreprise { id = 2, Nom = "Entreprise B" }
-        //    );
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
 
-        //    Ajouter des données de seed pour l'entité 'Groupe'
-        //    modelBuilder.Entity<Groupe>().HasData(
-        //        new Groupe { id = 1, Nom = "Groupe A", NombreGroupe = 1 },
-        //        new Groupe { id = 2, Nom = "Groupe B", NombreGroupe = 2 }
-        //    );
+            // Entreprises
+            modelBuilder.Entity<Entreprise>().HasData(
+                new Entreprise { Id = 1, Nom = "Desjardins" },
+                new Entreprise { Id = 2, Nom = "Ford" },
+                new Entreprise { Id = 3, Nom = "Restaurant Domino Longueuil" }
+            );
 
-        //    Ajouter des données de seed pour l'entité 'Equipement'
-        //    modelBuilder.Entity<Equipement>().HasData(
-        //        new Equipement { id = 1, TypeEquipement = "Equipement 1" },
-        //        new Equipement { id = 2, TypeEquipement = "Equipement 2" }
-        //    );
+            // Groupes
+            modelBuilder.Entity<Groupe>().HasData(
+                new Groupe { Id = 1, Nom = "Finance", EntrepriseId = 1 },
+                new Groupe { Id = 2, Nom = "Manufacturing", EntrepriseId = 2 },
+                new Groupe { Id = 3, Nom = "Delivery", EntrepriseId = 3 },
+                new Groupe { Id = 4, Nom = "Kitchen", EntrepriseId = 3 }
+            );
 
-        //    Ajouter des données de seed pour l'entité 'Constante'
-        //    modelBuilder.Entity<Constante>().HasData(
-        //        new Constante { id = 1, TypeEquipement = "Constante A", Quantite = 100 },
-        //        new Constante { id = 2, TypeEquipement = "Constante B", Quantite = 200 }
-        //    );
 
-        //    Ajouter des données de seed pour l'entité 'Lineaire'
-        //    modelBuilder.Entity<Lineaire>().HasData(
-        //        new Lineaire { id = 1, UniteMesure = "m", FacteurConversion = 1.5 },
-        //        new Lineaire { id = 2, UniteMesure = "cm", FacteurConversion = 0.01 }
-        //    );
+            modelBuilder.Entity<Periode>().HasData(
+            new Periode { Id = 1, Nom = "Période 1", Debut = new DateTime(2022, 1, 1), Fin = new DateTime(2022, 1, 31), EntrepriseId = 1 },
+           new Periode { Id = 2, Nom = "Période 2", Debut = new DateTime(2022, 2, 1), Fin = new DateTime(2022, 2, 28), EntrepriseId = 1 },
+          new Periode { Id = 3, Nom = "Période 1", Debut = new DateTime(2022, 1, 1), Fin = new DateTime(2022, 1, 31), EntrepriseId = 2 }
+);
+            // Équipements
+            modelBuilder.Entity<Equipement>().HasData(
+                new Equipement { Id = 1, TypeEquipement = "Computer", GroupeId = 1 },
+                new Equipement { Id = 2, TypeEquipement = "Truck", GroupeId = 2 },
+                new Equipement { Id = 3, TypeEquipement = "Oven", GroupeId = 4 }
+            );
 
-        //    Configuration pour ajouter des données de seed
-        //    modelBuilder.Entity<EmissionMensuelle>().HasData(
-        //        new EmissionMensuelle { id = 1, Mois = "Janvier", Annee = 2023, TotalEntreprise = 1000 },
-        //        new EmissionMensuelle { id = 2, Mois = "Février", Annee = 2023, TotalEntreprise = 1200 })
-        //  ;
-        //}
+            // Émissions mensuelles (périodes)
+            modelBuilder.Entity<EmissionMensuelle>().HasData(
+                new EmissionMensuelle { Id = 1, Mois = "Janvier", Annee = 2022, EquipementId = 1 },
+                new EmissionMensuelle { Id = 2, Mois = "Février", Annee = 2022, EquipementId = 2 }
+            );
+        }
+
     }
 }
     

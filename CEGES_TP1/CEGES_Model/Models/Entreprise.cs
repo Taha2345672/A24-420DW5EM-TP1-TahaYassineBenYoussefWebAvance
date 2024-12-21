@@ -18,6 +18,8 @@ namespace CEGES_MVC.Models
         public int EquipementsCount { get; set; }
         [NotMapped]
         public int PeriodesCount { get; set; }
+
+        public int EntrepriseId { get; set; }
     }
 
     

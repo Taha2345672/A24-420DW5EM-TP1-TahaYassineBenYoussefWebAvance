@@ -1,16 +1,21 @@
-﻿using System.Collections.Generic;
+﻿using CEGES_Core;
+using System.Collections.Generic;
 
 namespace CEGES_MVC.Models
 {
     public class Groupe
     {
-        public int id { get; set; }
+        public int Id { get; set; }
         public string Nom { get; set; }
         public int NombreGroupe { get; set; }
 
-        public ICollection<DateTime> Periodes { get; set; } // Par exemple une collection de DateTime
+        public int EntrepriseId { get; set; }
+
+        public ICollection<Periode> Periodes { get; set; } = new List<Periode>();
+  
 
 
-        public ICollection<Equipement> Equipements { get; set; }
-    }
+    public ICollection<Equipement> Equipements { get; set; } = new List<Equipement>();
+
+}
 }
