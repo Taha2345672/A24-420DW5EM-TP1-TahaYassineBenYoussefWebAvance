@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace CEGES_Services
 {
-    public class GroupeService : ServiceBase<GroupeService>, IGroupeService
+    public class GroupeService : ServiceBase<GroupeService>//, IGroupeService
     {
         private readonly CEGESDbContext _dbContext;
         public GroupeService(CEGESDbContext dbContext) : base(dbContext)

@@ -1,6 +1,4 @@
-﻿using CEGES_Models.Models;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -19,6 +17,7 @@ namespace CEGES_Models.ViewModels
         public int NombreGroupes {  get; set; }
         public int NombreEquipement { get; set; }
         public int NombrePeriodesMesurees { get; set; }
+        public int nom { get; set; }
 
     
     }
