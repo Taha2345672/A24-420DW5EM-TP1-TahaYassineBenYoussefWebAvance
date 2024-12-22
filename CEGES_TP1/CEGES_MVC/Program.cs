@@ -27,7 +27,7 @@ builder.Services.AddScoped<IEntrepriseService, IEntrepriseService>();
 builder.Services.AddScoped<IGroupeService, GroupeService>();
 //builder.Services.AddScoped<IEquipementConstantesService, EquipementConstantesService>();
 builder.Services.AddScoped<IEquipementLineairesService, EquipementLineairesService>();
-//builder.Services.AddScoped<IEquipementRelativesService, EquipementRelativesService>();
+builder.Services.AddScoped<IEquipementRelativesService, EquipementRelativesService>();
 
 
 
