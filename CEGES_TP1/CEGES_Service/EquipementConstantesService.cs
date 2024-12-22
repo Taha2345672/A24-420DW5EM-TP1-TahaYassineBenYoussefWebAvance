@@ -2,16 +2,13 @@
 using CEGES_Models;
 using CEGES_Services;
 using Microsoft.EntityFrameworkCore;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
-
 
 namespace CEGES_Service
 {
-   public class EquipementConstantesService : ServiceBase<EquipementConstantesService>//, IEquipementConstantesService
+    public class EquipementConstantesService : ServiceBase<EquipementConstantes>, IEquipementConstantesService
     {
         private readonly CEGESDbContext _dbContext;
 
@@ -20,7 +17,6 @@ namespace CEGES_Service
             _dbContext = dbContext;
         }
 
-        // Implémentation de CreateAsync pour EquipementConstantes
         public async Task<EquipementConstantes> CreateAsync(EquipementConstantes entity)
         {
             await _dbContext.EquipementConstantes.AddAsync(entity);
@@ -28,12 +24,37 @@ namespace CEGES_Service
             return entity;
         }
 
-        // Méthode pour récupérer les EquipementConstantes par Période
+        public async Task DeleteAsync(int id)
+        {
+            var equipement = await _dbContext.EquipementConstantes.FindAsync(id);
+            if (equipement != null)
+            {
+                _dbContext.EquipementConstantes.Remove(equipement);
+                await _dbContext.SaveChangesAsync();
+            }
+        }
+
+        public async Task<IReadOnlyList<EquipementConstantes>> GetAllAsync()
+        {
+            return await _dbContext.EquipementConstantes.ToListAsync();
+        }
+
+        public async Task<EquipementConstantes?> GetByIdAsync(int id)
+        {
+            return await _dbContext.EquipementConstantes.FindAsync(id);
+        }
+
+        public async Task EditAsync(EquipementConstantes entity)
+        {
+            _dbContext.EquipementConstantes.Update(entity);
+            await _dbContext.SaveChangesAsync();
+        }
+
         public async Task<IReadOnlyList<EquipementConstantes>> GetByPeriodeAsync(int periode)
         {
-            return await _dbContext.EquipementConstantes.Where(e => e.Periode == periode).ToListAsync();
+            return await _dbContext.EquipementConstantes
+                .Where(e => e.Periode == periode)
+                .ToListAsync();
         }
     }
 }
-
-   

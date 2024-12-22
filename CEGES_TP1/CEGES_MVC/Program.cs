@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using CEGES_DataAccess;
 using CEGES_Services;
+using CEGES_Service;
 
 
 
@@ -25,7 +26,7 @@ builder.Services.AddControllersWithViews()
 builder.Services.AddScoped(typeof(IServiceBaseAsync<>), typeof(ServiceBase<>));
 builder.Services.AddScoped<IEntrepriseService, IEntrepriseService>();
 builder.Services.AddScoped<IGroupeService, GroupeService>();
-//builder.Services.AddScoped<IEquipementConstantesService, EquipementConstantesService>();
+builder.Services.AddScoped<IEquipementConstantesService, EquipementConstantesService>();
 builder.Services.AddScoped<IEquipementLineairesService, EquipementLineairesService>();
 builder.Services.AddScoped<IEquipementRelativesService, EquipementRelativesService>();
 
