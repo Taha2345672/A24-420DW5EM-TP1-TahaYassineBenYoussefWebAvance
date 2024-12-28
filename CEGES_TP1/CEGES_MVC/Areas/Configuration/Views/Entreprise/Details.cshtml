@@ -1,11 +1,10 @@
-﻿@using CEGES_Models.ViewModels
-@model DetailEntrepriseVM
+﻿@model CEGES_Models.Entreprise;
 @{
     ViewData["Title"] = "Détails entreprise exemple";
 }
 <h3>
-    Entreprise exemple
-    <small class="text-muted">(Entreprise)</small>
+
+    <small class="text-muted">@Model.NomEntreprise</small>
 </h3>
 <div class="row pb-3 backgroundWhite">
     <div class="col-md-4 col-sm-12">
@@ -22,7 +21,7 @@
             <div class="card h-100" style="min-width: 15rem; max-width: 18rem;">
                 <img src="/images/groupe.png" class="card-img-top rounded" />
                 <div class="card-body">
-                    <p class="card-title h5 text-center"><b style="color:#2c3e50">Groupe exemple</b></p>                        
+                    <p class="card-title h5 text-center"><b style="color:#2c3e50">@Model.Groupes</b></p>
                     <div class="card-block">
                         <div class="row no-gutters">
                             <div class="col-md-7 text-right">
