@@ -1,5 +1,4 @@
-﻿@using CEGES_Models.ViewModels
-@model List<ListeEntreprisesVM>
+﻿@model IEnumerable<CEGES_Models.ViewModels.Entreprise_VM>
 @{
     ViewData["Title"] = "Configuration des entreprises";
 }
@@ -7,35 +6,54 @@
     Liste des entreprises
 </h3>
 <div class="row">
+
     @foreach (var entreprise in Model)
     {
         <div class="col mb-4">
             <div class="card h-100" style="min-width: 15rem; max-width: 18rem;">
                 <img src="/images/entreprise.png" class="card-img-top rounded" />
                 <div class="card-body">
-                    <p class="card-title h5 text-center"><b style="color:#2c3e50">@entreprise.Nom</b></p>
-                   @*  <div class="card-block">
-                        @await Html.PartialAsync("_DetailInfo", new DetailCountVM("Groupe", entreprise.Groupes, "s", "Aucun"))
-                        @await Html.PartialAsync("_DetailInfo", new DetailCountVM("Équipement", entreprise.Equipements, "s", "Aucun"))
-                        @await Html.PartialAsync("_DetailInfo", new DetailCountVM("Période", entreprise.Periodes, "s", "Aucune"))
-                    </div> *@
-
-
-
-
+                    <p class="card-title h5 text-center"><b style="color:#2c3e50">@entreprise.Entreprise.NomEntreprise</b></p>
                     <div class="card-block">
-                        <p><strong>Groupes :</strong> @entreprise.Groupes</p>
-                        <p><strong>Équipements :</strong> @entreprise.Equipements</p>
-                        <p><strong>Périodes :</strong> @entreprise.Periodes</p>
+                        <div class="row no-gutters">
+                            <div class="col-md-7 text-right">
+                                Groupe&nbsp;:&nbsp;
+                            </div>
+                            <div class="col-md-5 text-left">
+                                @entreprise.NombreGroupes
+                            </div>
+                        </div>
+                        <div class="row no-gutters">
+                            <div class="col-md-7 text-right">
+                                Équipement&nbsp;:&nbsp;
+                            </div>
+                            <div class="col-md-5 text-left">
+                                @entreprise.NombreEquipement
+                            </div>
+                        </div>
+                        <div class="row no-gutters">
+                            <div class="col-md-7 text-right">
+                                Rapports&nbsp;:&nbsp;
+                            </div>
+                            <div class="col-md-5 text-left">
+                                @entreprise.NombrePeriodesMesurees
+                                <br />
+                                Il faut afficher par mois non par nb de jours(GA)
+                                
+                                
+                            </div>
+                        </div>
                     </div>
-
                 </div>
                 <div class="card-footer text-center">
-                    <a asp-action="Details" class="card-link" asp-route-id="@entreprise.Id">Details</a>
+                    <a asp-action="Details" asp-route-id="@entreprise.Entreprise.Id" class="card-link">Details</a>
                 </div>
             </div>
         </div>
     }
+   
+
+
     <div class="col mb-4">
         <div class="card h-100" style="min-width: 15rem; max-width: 18rem;">
             <img src="/images/entreprise.png" class="card-img-top rounded" style="opacity: 0.25" />
