@@ -11,11 +11,11 @@ using CEGES_Service;
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 
 
+builder.Services.AddControllersWithViews();
 builder.Services.AddDbContext<CEGESDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 
-builder.Services.AddControllersWithViews();
 
 builder.Services.AddScoped(typeof(IServiceBaseAsync<>), typeof(ServiceBase<>));
 builder.Services.AddScoped<IEntrepriseService, EntrepriseService>(); // Utilisation de l'implémentation correcte
@@ -48,10 +48,9 @@ app.UseRouting();
 app.MapControllerRoute(
     name: "Configuration",
     pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}");
-
-app.MapControllerRoute(
+app.MapAreaControllerRoute(
     name: "default",
+    areaName: "Configuration",
     pattern: "{controller=Home}/{action=Index}/{id?}");
-
 
 app.Run();
